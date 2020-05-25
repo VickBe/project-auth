@@ -1,36 +1,56 @@
 import React, {useState} from 'react'
+import {useDispatch} from 'react-redux'
+import { user } from 'reducer/user'
+import { useHistory } from 'react-router-dom'
 
 
 export const SignUp = () => {
-  const [userName, setUserName]= useState("")
+  const [name, setName]= useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState(false)
+  const dispatch = useDispatch()
+  const history = useHistory()
 
 
-  const handleSubmit = event => {
+  const handleSignUp = event => {
     event.preventDefault()
-
+    if (password) {
     fetch("http://localhost:8080/users",
       {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({name:userName, email:email, password:password})
+        body: JSON.stringify({name, email, password})
           
-      }, [] ).then (()=> {
-          window.location.reload()
-        
       })
+      .then((res) => {
+        if(!res.ok) {
+          throw new Error ('Incorrect email or password')
+        }
+        return res.json()
+      }).then(({ userId, accessToken}) => {
+        if (accessToken) {
+          window.localStorage.setItem('accessToken', accessToken)
+          window.localStorage.setItem('userId', userId)
+          dispatch(user.actions.login())
+        }
+      }).then(() => history.push('/sign-in'))
+    } else {
+      setError(true)
+    }
   }
 
   
+
+  
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSignUp}>
       <label>
         Name
         <input
           type= "text"
-          value={userName}
-          onChange={event => setUserName(event.target.value)}
+          value={name}
+          onChange={event => setName(event.target.value)}
           required>
         </input>
       </label>

@@ -1,8 +1,14 @@
 import React, {useState} from 'react'
+import {useDispatch} from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import {user} from '../reducer/user'
 
 export const SignIn = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   const handleLogIn = event => {
     event.preventDefault()
@@ -10,13 +16,27 @@ export const SignIn = () => {
     fetch("http://localhost:8080/sessions",
       {
         method: 'POST',
-        headers: { "Content-Type":"application/json", "Authorization":"accessToken"},
-        body: JSON.stringify({userId:email, accessToken:password})
+        headers:{ "Content-Type": "application/json" },
+        body: JSON.stringify({email, password})
           
-      }, [] ).then (()=> {
-          window.location.reload()
-        
+      }).then (res => {
+        if (!res.ok) {
+          throw new Error('Your email and password was incorrect')
+        } 
+        return res.json()
+      }).then(({userId, accessToken}) => {
+        if (accessToken) {
+          window.localStorage.setItem('accessToken', accessToken)
+          window.localStorage.setItem('userId', userId)
+          dispatch(user.actions.login())
+          history.push('/secrets')
+        }
+      }).catch((err) => {
+        setError(err.message)
       })
+        
+        
+      
   }
 
   return (
