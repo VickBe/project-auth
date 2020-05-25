@@ -18,21 +18,21 @@ export const App = () => {
   return (
     <Provider store={store}>
       <main>
-    <BrowserRouter>
-      <Switch>
-          <Route path="/" exact>
-            <SignUp />
-            <a href="/sign-in">Sign in?</a>
-          </Route>
-          <Route path="/sign-in">
-            <SignIn />
-          </Route>
-          <Route path="/secrets" >
-            <Secret />
-          </Route> 
-      </Switch>
-    </BrowserRouter>
-    </main>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" exact>
+              <SignUp />
+              <a href="/sign-in">Sign in?</a>
+            </Route>
+            <Route path="/sign-in">
+              <SignIn />
+            </Route>
+            <Route path="/secrets" >
+              <Secret />
+            </Route> 
+          </Switch>
+        </BrowserRouter>
+      </main>
     </Provider>
   )
 }

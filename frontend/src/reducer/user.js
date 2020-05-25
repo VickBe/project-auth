@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+//accessToken
+
 const initialState = {
   isAuthorized: false,
 }

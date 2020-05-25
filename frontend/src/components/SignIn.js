@@ -13,6 +13,8 @@ export const SignIn = () => {
   const handleLogIn = event => {
     event.preventDefault()
 
+    //console.log the error messages, see where the wrong line of code is. 
+
     fetch("http://localhost:8080/sessions",
       {
         method: 'POST',
@@ -33,6 +35,7 @@ export const SignIn = () => {
         }
       }).catch((err) => {
         setError(err.message)
+        //console.log this as well!
       })
         
         
