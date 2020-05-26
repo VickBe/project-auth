@@ -6,7 +6,6 @@ import {user} from '../reducer/user'
 export const SignIn = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -21,23 +20,28 @@ export const SignIn = () => {
         headers:{ "Content-Type": "application/json" },
         body: JSON.stringify({email, password})
           
-      }).then (res => {
+      })
+      .then (res => {
         if (!res.ok) {
-          throw new Error('Your email and password was incorrect')
-        } 
-        return res.json()
-      }).then(({userId, accessToken}) => {
+          console.log('respons not Ok in signin.js')
+        } else {           
+          console.log('response ok in signin.js')
+          return res.json()
+        }
+          
+        
+      }).then(({accessToken}) => {
         if (accessToken) {
-          window.localStorage.setItem('accessToken', accessToken)
-          window.localStorage.setItem('userId', userId)
           dispatch(user.actions.login())
+          dispatch(user.actions.saveAccesToken(accessToken))
           history.push('/secrets')
+          console.log('yey its working', accessToken)
         }
       }).catch((err) => {
-        setError(err.message)
         //console.log this as well!
-      })
+        console.log('error in catch singin.js')
         
+      })
         
       
   }
