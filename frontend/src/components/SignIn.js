@@ -12,14 +12,11 @@ export const SignIn = () => {
   const handleLogIn = event => {
     event.preventDefault()
 
-    //console.log the error messages, see where the wrong line of code is. 
-
     fetch("http://localhost:8080/sessions",
       {
         method: 'POST',
         headers:{ "Content-Type": "application/json" },
-        body: JSON.stringify({email, password})
-          
+        body: JSON.stringify({email, password})  
       })
       .then (res => {
         if (!res.ok) {
@@ -27,9 +24,7 @@ export const SignIn = () => {
           throw 'Could not log in, try a different username or password'
         }   
           console.log('response ok in signin.js')
-          return res.json()
-             
-        
+          return res.json() 
       }).then(({accessToken}) => {
         if (accessToken) {
           dispatch(user.actions.login())
@@ -38,14 +33,9 @@ export const SignIn = () => {
           console.log('yey its working', accessToken)
         }
       }).catch((err) => {
-        //console.log this as well!
         console.log('error in catch singin.js')
         alert('Wrong password or username, please try again')
-        //dispatch(user.actions.setErrorMessage(errorMessage))
-        
-      })
-        
-      
+      })  
   }
 
   return (

@@ -22,11 +22,13 @@ export const App = () => {
           <Switch>
             <Route path="/" exact>
               <SignUp />
-              <a href="/sign-in">Sign in?</a>
+              <div className='link'><a href="/sign-in">Sign in?</a></div>
+              
             </Route>
             <Route path="/sign-in">
               <SignIn />
-              <a href="/">Sign up?</a>
+              <div className='link'><a href="/">Sign up?</a></div>
+              
             </Route>
             <Route path="/secrets" >
               <Secret />

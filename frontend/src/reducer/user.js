@@ -1,14 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-//accessToken
-
 const initialState = {
   isAuthorized: false,
   accessToken: '',
   email: '',
   password: '',
-  // errorMessage: null
-
 }
 
 export const user = createSlice({
@@ -24,9 +20,5 @@ export const user = createSlice({
     login: (state) => { state.isAuthorized = true },
     logout: (state) => { state.isAuthorized = false }
   },
-  // setErrorMessage: (state, action) => {
-  //   const {errorMessage} = action.payload
-  //   console.log(`Error Message: ${errorMessage}`)
-  //   state.errorMessage = action.payload
-  // }
+ 
 })
