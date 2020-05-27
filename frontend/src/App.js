@@ -26,6 +26,7 @@ export const App = () => {
             </Route>
             <Route path="/sign-in">
               <SignIn />
+              <a href="/">Sign up?</a>
             </Route>
             <Route path="/secrets" >
               <Secret />

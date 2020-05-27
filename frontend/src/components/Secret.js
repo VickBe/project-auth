@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { user } from 'reducer/user'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -19,12 +18,13 @@ export const Secret = () => {
       }
       })
       .then((res) => {
-        if (res.ok) {
-           res.json()
-           console.log('secrets res ok?')  
-        } else {
-          throw new Error('error in secrets')
-        }
+        if (!res.ok) {
+           throw('error in secrets')
+            
+        } return
+         res.json() 
+         console.log('secrets res ok?') 
+        
       }, [accessToken])
       .catch((err) => {
         history.push('/sign-in')
