@@ -29,15 +29,20 @@ const User = mongoose.model('User', {
 })
 
 const authenticateUser = async (req, res, next) => {
-  const user = await User.findOne({ accessToken: req.header('Authorization') })
-
+  try {
+  const user = await User.findOne({ accessToken: req.header('Authorization') 
+})
   if (user) {
     req.user = user
     next()
   } else {
     res.status(401).json({ loggedOut: true })
   }
+} catch (err) {
+    res.status(403).json({message: 'Access Token is missing or wrong', errors:err})
 }
+}
+
 
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
@@ -61,7 +66,7 @@ app.post('/users', async (req, res) => {
     const user = new User({ name, email, password: bcrypt.hashSync(password) })
     user.save()
     res.status(201).json({ id: user._id, accessToken: user.accessToken })
-  } catch (err) {
+  }catch (err) {
     res.status(400).json({ message: 'Could not create user!', errors: err.errors })
   }
 })
@@ -74,13 +79,19 @@ app.get('/secrets', (req, res) => {
 
 // Login endpoint
 app.post('/sessions', async (req, res) => {
+  try {
   const user = await User.findOne({ email: req.body.email })
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     res.json({ userId: user._id, accessToken: user.accessToken })
-  } else {
-    res.json({ notFound: true })
+  }else {
+    res.status(401).json({ notFound: true })
+  
+  }}catch (err) {
+    res.status(404).json({notFound: true})
   }
-})
+
+}
+)
 
 // Start the server
 app.listen(port, () => {
