@@ -1,7 +1,7 @@
 
 Project-Auth
 
-Pair-programming
+Pair-programming. 
 Site where a user can sign up, sign in and if authorized see a secret page. There is also a logout function.
 
 Tech
