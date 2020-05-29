@@ -16,7 +16,7 @@ export const SignUp = () => {
   const handleSignUp = event => {
     event.preventDefault()
     //users
-    fetch("https://camilla-and-viktorias-secret.herokuapp.com/",
+    fetch("https://camilla-and-viktorias-secret.herokuapp.com/users",
       {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
