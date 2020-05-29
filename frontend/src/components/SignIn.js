@@ -11,8 +11,8 @@ export const SignIn = () => {
   
   const handleLogIn = event => {
     event.preventDefault()
-
-    fetch("http://localhost:8080/sessions",
+    //sessions
+    fetch("https://camilla-and-viktorias-secret.herokuapp.com/",
       {
         method: 'POST',
         headers:{ "Content-Type": "application/json" },
