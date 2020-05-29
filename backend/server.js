@@ -79,15 +79,15 @@ app.get('/secrets', (req, res) => {
 
 // Login endpoint
 app.post('/sessions', async (req, res) => {
-  try {
+  //try {
   const user = await User.findOne({ email: req.body.email })
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     res.json({ userId: user._id, accessToken: user.accessToken })
   }else {
     res.status(401).json({ notFound: true })
   
-  }}catch (err) {
-    res.status(404).json({notFound: true})
+  // }}catch (err) {
+  //   res.status(404).json({notFound: true})
   }
 
 }

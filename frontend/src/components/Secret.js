@@ -23,10 +23,9 @@ export const Secret = () => {
       })
       .then((res) => {
         if (!res.ok) {
-           throw('error in secrets')   
+           throw 'error in secrets'   
         }return
          res.json() 
-         console.log('secrets res ok') 
       }, [accessToken])
       .catch((err) => {
         history.push('/sign-in')
